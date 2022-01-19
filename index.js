@@ -25,7 +25,13 @@ const server = http.createServer((req, res) => {
   if (items[1] === "friends") {
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify());
+    if (items.length === 3) {
+      //convert 'items[2]' to number from a string
+      const friendIndex = Number(items[2]);
+      res.end(JSON.stringify(friends[friendIndex]));
+    } else {
+      res.end(JSON.stringify(friends));
+    }
   } else if (items[1] === "/message") {
     res.setHeader("Content-Type", "text/html");
     res.write("<html>");
